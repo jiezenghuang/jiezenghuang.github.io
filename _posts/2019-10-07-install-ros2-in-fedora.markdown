@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "在Fedora 30中安装ROS 2.0"
-date:   2019-10-05 12:02:13
+date:   2019-10-07 19:04:28
 categories: Fedora ROS2
-permalink: /archivers/fedora
+permalink: pretty
 ---
 
 ## 系统信息
