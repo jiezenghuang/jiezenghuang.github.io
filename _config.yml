@@ -31,7 +31,7 @@ header:
     Category: /category/
     #Donate: https://laobubu.net/donate.html
 
-permalink: /archivers/:title
+permalink: pretty
 plugins:
  - jekyll-paginate
  - jekyll-gist
