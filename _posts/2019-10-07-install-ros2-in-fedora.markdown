@@ -19,7 +19,7 @@ Linux ros2-vm 5.2.17-200.fc30.x86_64 #1 SMP Mon Sep 23 13:42:32 UTC 2019 x86_64 
 
 ## 安装系统依赖
 
-安装之前建议先[更新系统](archivers/fedora#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F)。
+安装之前建议先[更新系统](2019/10/05/fedora-tips/#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F)。
 
 >可参考[官网安装指引](https://index.ros.org/doc/ros2/Installation/Dashing/Fedora-Development-Setup/)。
 
@@ -169,6 +169,16 @@ $ cat stdout_stderr.log
 * 使用第三方下载工具下载https://github.com/OGRECave/ogre/archive/v1.12.1.zip，并将其放到~/ros2_ws/build/rviz_ogre_vendor/ogre-v1.12.1-prefix/src/目录下
 
 * 重新编译。
+
+由于笔者使用的是Fedora Server版本，安装rviz组件意义不大，因此也可以在~/ros2_ws/log/build/COLCON_IGNORE文件中添加rviz相关组件，免去编译、安装步骤。rviz相关组件清单如下：
+rviz2
+rviz_assimp_vendor
+rviz_common
+rviz_default_plugins
+rviz_ogre_vendor
+rviz_rendering
+rviz_rendering_tests
+rviz_visual_testing_framework
 
 ## 检验是否安装成功
 
