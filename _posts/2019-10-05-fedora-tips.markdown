@@ -3,7 +3,7 @@ layout: post
 title:  "Fedora Tips"
 date:   2019-10-05 12:02:13
 categories: Fedora
-permalink: pretty
+#permalink: pretty
 ---
 
 ## 更新系统

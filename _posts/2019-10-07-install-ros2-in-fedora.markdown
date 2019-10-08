@@ -3,7 +3,7 @@ layout: post
 title:  "在Fedora 30中安装ROS 2.0"
 date:   2019-10-07 19:04:28
 categories: Fedora ROS2
-permalink: pretty
+#permalink: pretty
 ---
 
 ## 系统信息
