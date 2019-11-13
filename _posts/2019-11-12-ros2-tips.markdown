@@ -1,0 +1,88 @@
+---
+layout: post
+title:  "ROS2 Tips"
+date:   2019-11-12 14:40:12
+categories: ROS2
+#permalink: pretty
+---
+
+## 基础配置
+
+### 环境变量
+
+每次新打开一个终端，都需要导入ROS2环境初始化脚本。虽然可以将初始化脚步添加到用户登陆初始化脚本中，但由于ROS2工作空间依赖较多，导入时间太久，有可能出现无法登陆桌面环境的现象。ROS2环境初始化脚本有setup.bash和local_setup.bash两个，放在工作空间的install文件夹下。当你新建一个工作空间时，需要先导入ROS2工作空间的setup.bash作为底层环境，再导入新建工作空间中的local_setup.bash作为上层环境，如下所示：
+‵‵‵ console
+$ source ./ros2/install/setup.bash  #底层
+$ source ./workspace/install/local_setup.bash #上层
+```
+
+查询ROS2相关的环境变量
+
+``` console
+$ printenv | grep -i ROS
+$ echo $ROS_DISTRO  #查询ROS版本代号
+$ echo $ROS_VERSION  #查询ROS版本
+```
+配置VS CODE环境需要用到的环境变量：COLCON_PREFIX_PATH
+
+## VS Code配置
+
+在c_cpp_propertites.json配置文件中添加Include目录：
+
+``` json
+"includePath": [
+                "${workspaceFolder}/**",
+                "${env.COLCON_PREFIX_PATH}/std_msgs/include/",
+                "${env.COLCON_PREFIX_PATH}/rosidl_generator_c/include/",
+                "${env.COLCON_PREFIX_PATH}/rosidl_generator_cpp/include/",
+                "${env.COLCON_PREFIX_PATH}/rosidl_typesupport_interface/include/",
+                "${env.COLCON_PREFIX_PATH}/rcutils/include/",
+                "${env.COLCON_PREFIX_PATH}/rcl/include/",
+                "${env.COLCON_PREFIX_PATH}/rclcpp/include/",
+                "${env.COLCON_PREFIX_PATH}/rcl_interfaces/include/",
+                "${env.COLCON_PREFIX_PATH}/builtin_interfaces/include/",
+                "${env.COLCON_PREFIX_PATH}/rmw/include/"
+            ]
+```
+依赖其他组件请自行添加。
+
+## Turtlesim安装
+
+使用源码安装ROS2时，默认不包含Turtlesim包（因为Turtlesim在ROS代码库中维护，而不是ROS2）。
+首先进入ROS2工作目录下的src，下载ros_tutorials源代码及相关以来：
+``` console
+$ git clone https://github.com/ros/ros_tutorials.git -b eloquent-devel # eloquent为ROS2版本代号
+$ rosdep install -i --from-path src --rosdistro eloquent -y # 安装相关依赖，可能会提示你先运行rosdep update进行更新
+```
+然后编译：
+``` console
+$ colcon build --symlink-install
+```
+
+## ROS2命令
+
+ROS2命令统一以ros2开始，使用‘ros2 -h‘可以查询支持那些命令。想了解具体命令的帮助可以使用‘ros2 <command> -h‘。
+
+### RUN命令
+
+使用run命令可以运行可执行的软件包，具体命令格式为：
+``` console
+$ ros2 run <package_name> <executable_name>
+$ ros2 run turtlesim turtlesim_node #运行turtlesim包中的turtlesim_node节点
+```
+
+## COLCON命令
+
+### BUILD
+
+colcon build几个有用的参数：
+--packages-up-to <pkg name>： 只编译你需要的包及其依赖而不是整个工作环境，可以节省编译时间
+--packages-select <pkg name>： 只编译特定的包
+--symlink-install ： 可能的话，使用符号连接而不是复制文件，节省编译时间
+--merge-install ： windows下路径长度有限制，merge-install可以将目录合并到install路径下
+
+## ROSDEP命令
+
+## VCS命令
+
+
