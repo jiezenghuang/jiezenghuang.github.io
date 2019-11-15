@@ -10,7 +10,10 @@ categories: ROS2
 
 ### 环境变量
 
-每次新打开一个终端，都需要导入ROS2环境初始化脚本。虽然可以将初始化脚步添加到用户登陆初始化脚本中，但由于ROS2工作空间依赖较多，导入时间太久，有可能出现无法登陆桌面环境的现象。ROS2环境初始化脚本有setup.bash和local_setup.bash两个，放在工作空间的install文件夹下。当你新建一个工作空间时，需要先导入ROS2工作空间的setup.bash作为底层环境，再导入新建工作空间中的local_setup.bash作为上层环境，如下所示：
+每次新打开一个终端，都需要导入ROS2环境初始化脚本。虽然可以将初始化脚步添加到用户登陆初始化脚本中，但由于ROS2工作空间依赖较多，导入时间太久，有可能出现无法登陆桌面环境的现象。
+
+ROS2环境初始化脚本有setup.bash和local_setup.bash两个，放在工作空间的install文件夹下。当你新建一个工作空间时，需要先导入ROS2工作空间的setup.bash作为底层环境，再导入新建工作空间中的local_setup.bash作为上层环境，如下所示：
+
 ‵‵‵ console
 $ source ./ros2/install/setup.bash  #底层
 $ source ./workspace/install/local_setup.bash #上层
@@ -23,6 +26,7 @@ $ printenv | grep -i ROS
 $ echo $ROS_DISTRO  #查询ROS版本代号
 $ echo $ROS_VERSION  #查询ROS版本
 ```
+
 配置VS CODE环境需要用到的环境变量：COLCON_PREFIX_PATH
 
 ## VS Code配置
@@ -44,17 +48,21 @@ $ echo $ROS_VERSION  #查询ROS版本
                 "${env.COLCON_PREFIX_PATH}/rmw/include/"
             ]
 ```
+
 依赖其他组件请自行添加。
 
 ## Turtlesim安装
 
 使用源码安装ROS2时，默认不包含Turtlesim包（因为Turtlesim在ROS代码库中维护，而不是ROS2）。
 首先进入ROS2工作目录下的src，下载ros_tutorials源代码及相关以来：
+
 ``` console
 $ git clone https://github.com/ros/ros_tutorials.git -b eloquent-devel # eloquent为ROS2版本代号
 $ rosdep install -i --from-path src --rosdistro eloquent -y # 安装相关依赖，可能会提示你先运行rosdep update进行更新
 ```
+
 然后编译：
+
 ``` console
 $ colcon build --symlink-install
 ```
@@ -66,6 +74,7 @@ ROS2命令统一以ros2开始，使用‘ros2 -h‘可以查询支持那些命�
 ### RUN命令
 
 使用run命令可以运行可执行的软件包，具体命令格式为：
+
 ``` console
 $ ros2 run <package_name> <executable_name>
 $ ros2 run turtlesim turtlesim_node #运行turtlesim包中的turtlesim_node节点
